@@ -11,11 +11,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
-import { FormFieldType } from "./forms/PatientForm";
 import React from "react";
 import Image from "next/image";
 import "react-phone-number-input/style.css";
-import PhoneInput, { E164Number } from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
+import { E164Number } from "libphonenumber-js/core";
+
+export enum FormFieldType {
+  INPUT = "input",
+  TEXTAREA = "textarea",
+  PHONE_INPUT = "phoneInput",
+  CHECKBOX = "checkbox",
+  DATE_PICKER = "datePicker",
+  SELECT = "select",
+  SKELETON = "skeleton",
+}
 interface CustomProps {
   control: Control<any>;
   fieldType: FormFieldType;
