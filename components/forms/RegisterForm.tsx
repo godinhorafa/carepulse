@@ -14,13 +14,19 @@ import "react-phone-number-input/style.css";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants";
+import {
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
+import { capitalize } from "@/lib/utils";
 
-export const RegisterForm = ({ user }: { user: user }) => {
+export const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,16 +37,22 @@ export const RegisterForm = ({ user }: { user: user }) => {
       name: "",
       email: "",
       phone: "",
+      gender: "male",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
+  async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
     setIsLoading(true);
 
     let formData;
 
-    if (values.identificationDocument && values.identificationDocument.length > 0) {
-      const blobFile = new Blob([values.identificationDocument[0]], { type: values.identificationDocument[0].type });
+    if (
+      values.identificationDocument &&
+      values.identificationDocument.length > 0
+    ) {
+      const blobFile = new Blob([values.identificationDocument[0]], {
+        type: values.identificationDocument[0].type,
+      });
       formData = new FormData();
       formData.append("blobFile", blobFile);
       formData.append("fileName", values.identificationDocument[0].name);
@@ -52,7 +64,7 @@ export const RegisterForm = ({ user }: { user: user }) => {
         userId: user.$id,
         birthDate: new Date(values.birthDate),
         identificationDocument: formData,
-        allergies: values.allergies || ''
+        allergies: values.allergies || "",
       };
 
       // @ts-ignore
@@ -66,7 +78,7 @@ export const RegisterForm = ({ user }: { user: user }) => {
     }
 
     setIsLoading(false);
-  };
+  }
 
   return (
     <Form {...form}>

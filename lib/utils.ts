@@ -79,3 +79,5 @@ export function encryptKey(passkey: string) {
 export function decryptKey(passkey: string) {
   return atob(passkey);
 }
+
+export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
