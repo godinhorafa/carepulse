@@ -37,16 +37,22 @@ export const PatientForm = () => {
         phone: values.phone,
       };
 
+      console.log("Submitting user:", user);
       const newUser = await createUser(user);
+      console.log("Received response:", newUser);
 
-      if (newUser) {
+      if (newUser && newUser.$id) {
         router.push(`/patients/${newUser.$id}/register`);
+      } else {
+        console.error("Invalid user data returned:", newUser);
+        // Adicione alguma lógica de fallback ou mensagem de erro para o usuário
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error in form submission:", error);
+      // Adicione uma mensagem de erro para o usuário
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
