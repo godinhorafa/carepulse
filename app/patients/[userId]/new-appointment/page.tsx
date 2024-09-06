@@ -24,7 +24,7 @@ export default async function NewAppointment({
             patientId={patient.$id}
           />
           <div className="text-14-regular mt-20 flex justify-between">
-            <p className="copyright mt-10 py-12">© 2024 CarePulse</p>
+            <p className="copyright mt-10 py-12"> © 2024 CarePulse</p>
           </div>
         </div>
       </section>
